@@ -73,7 +73,7 @@ export const analyzeCrop = createServerFn({ method: "POST" })
       user_id: context.userId,
       disease: result.disease,
       confidence: result.confidence,
-      result: result as unknown as Record<string, unknown>,
+      result: JSON.parse(JSON.stringify(result)),
     });
 
     return { result };
