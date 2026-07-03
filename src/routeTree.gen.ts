@@ -21,6 +21,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedCropDoctorRouteImport } from './routes/_authenticated/crop-doctor'
 import { Route as AuthenticatedAssistantRouteImport } from './routes/_authenticated/assistant'
 import { Route as AuthenticatedAssistantIndexRouteImport } from './routes/_authenticated/assistant.index'
+import { Route as AuthenticatedAssistantThreadIdRouteImport } from './routes/_authenticated/assistant.$threadId'
 
 const WeatherRoute = WeatherRouteImport.update({
   id: '/weather',
@@ -82,6 +83,12 @@ const AuthenticatedAssistantIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedAssistantRoute,
   } as any)
+const AuthenticatedAssistantThreadIdRoute =
+  AuthenticatedAssistantThreadIdRouteImport.update({
+    id: '/$threadId',
+    path: '/$threadId',
+    getParentRoute: () => AuthenticatedAssistantRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -94,6 +101,7 @@ export interface FileRoutesByFullPath {
   '/weather': typeof WeatherRoute
   '/assistant': typeof AuthenticatedAssistantRouteWithChildren
   '/crop-doctor': typeof AuthenticatedCropDoctorRoute
+  '/assistant/$threadId': typeof AuthenticatedAssistantThreadIdRoute
   '/assistant/': typeof AuthenticatedAssistantIndexRoute
 }
 export interface FileRoutesByTo {
@@ -106,6 +114,7 @@ export interface FileRoutesByTo {
   '/schemes': typeof SchemesRoute
   '/weather': typeof WeatherRoute
   '/crop-doctor': typeof AuthenticatedCropDoctorRoute
+  '/assistant/$threadId': typeof AuthenticatedAssistantThreadIdRoute
   '/assistant': typeof AuthenticatedAssistantIndexRoute
 }
 export interface FileRoutesById {
@@ -121,6 +130,7 @@ export interface FileRoutesById {
   '/weather': typeof WeatherRoute
   '/_authenticated/assistant': typeof AuthenticatedAssistantRouteWithChildren
   '/_authenticated/crop-doctor': typeof AuthenticatedCropDoctorRoute
+  '/_authenticated/assistant/$threadId': typeof AuthenticatedAssistantThreadIdRoute
   '/_authenticated/assistant/': typeof AuthenticatedAssistantIndexRoute
 }
 export interface FileRouteTypes {
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/weather'
     | '/assistant'
     | '/crop-doctor'
+    | '/assistant/$threadId'
     | '/assistant/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -148,6 +159,7 @@ export interface FileRouteTypes {
     | '/schemes'
     | '/weather'
     | '/crop-doctor'
+    | '/assistant/$threadId'
     | '/assistant'
   id:
     | '__root__'
@@ -162,6 +174,7 @@ export interface FileRouteTypes {
     | '/weather'
     | '/_authenticated/assistant'
     | '/_authenticated/crop-doctor'
+    | '/_authenticated/assistant/$threadId'
     | '/_authenticated/assistant/'
   fileRoutesById: FileRoutesById
 }
@@ -263,15 +276,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAssistantIndexRouteImport
       parentRoute: typeof AuthenticatedAssistantRoute
     }
+    '/_authenticated/assistant/$threadId': {
+      id: '/_authenticated/assistant/$threadId'
+      path: '/$threadId'
+      fullPath: '/assistant/$threadId'
+      preLoaderRoute: typeof AuthenticatedAssistantThreadIdRouteImport
+      parentRoute: typeof AuthenticatedAssistantRoute
+    }
   }
 }
 
 interface AuthenticatedAssistantRouteChildren {
+  AuthenticatedAssistantThreadIdRoute: typeof AuthenticatedAssistantThreadIdRoute
   AuthenticatedAssistantIndexRoute: typeof AuthenticatedAssistantIndexRoute
 }
 
 const AuthenticatedAssistantRouteChildren: AuthenticatedAssistantRouteChildren =
   {
+    AuthenticatedAssistantThreadIdRoute: AuthenticatedAssistantThreadIdRoute,
     AuthenticatedAssistantIndexRoute: AuthenticatedAssistantIndexRoute,
   }
 
