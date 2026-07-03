@@ -19,6 +19,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedCropDoctorRouteImport } from './routes/_authenticated/crop-doctor'
+import { Route as AuthenticatedAssistantRouteImport } from './routes/_authenticated/assistant'
 
 const WeatherRoute = WeatherRouteImport.update({
   id: '/weather',
@@ -69,6 +70,11 @@ const AuthenticatedCropDoctorRoute = AuthenticatedCropDoctorRouteImport.update({
   path: '/crop-doctor',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAssistantRoute = AuthenticatedAssistantRouteImport.update({
+  id: '/assistant',
+  path: '/assistant',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -79,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/schemes': typeof SchemesRoute
   '/weather': typeof WeatherRoute
+  '/assistant': typeof AuthenticatedAssistantRoute
   '/crop-doctor': typeof AuthenticatedCropDoctorRoute
 }
 export interface FileRoutesByTo {
@@ -90,6 +97,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/schemes': typeof SchemesRoute
   '/weather': typeof WeatherRoute
+  '/assistant': typeof AuthenticatedAssistantRoute
   '/crop-doctor': typeof AuthenticatedCropDoctorRoute
 }
 export interface FileRoutesById {
@@ -103,6 +111,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/schemes': typeof SchemesRoute
   '/weather': typeof WeatherRoute
+  '/_authenticated/assistant': typeof AuthenticatedAssistantRoute
   '/_authenticated/crop-doctor': typeof AuthenticatedCropDoctorRoute
 }
 export interface FileRouteTypes {
@@ -116,6 +125,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/schemes'
     | '/weather'
+    | '/assistant'
     | '/crop-doctor'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -127,6 +137,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/schemes'
     | '/weather'
+    | '/assistant'
     | '/crop-doctor'
   id:
     | '__root__'
@@ -139,6 +150,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/schemes'
     | '/weather'
+    | '/_authenticated/assistant'
     | '/_authenticated/crop-doctor'
   fileRoutesById: FileRoutesById
 }
@@ -226,14 +238,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCropDoctorRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/assistant': {
+      id: '/_authenticated/assistant'
+      path: '/assistant'
+      fullPath: '/assistant'
+      preLoaderRoute: typeof AuthenticatedAssistantRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAssistantRoute: typeof AuthenticatedAssistantRoute
   AuthenticatedCropDoctorRoute: typeof AuthenticatedCropDoctorRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAssistantRoute: AuthenticatedAssistantRoute,
   AuthenticatedCropDoctorRoute: AuthenticatedCropDoctorRoute,
 }
 
