@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { createThread, deleteThread, listThreads } from "@/lib/chat.functions";
 
 export const Route = createFileRoute("/_authenticated/assistant")({
-  component: AssistantLayout;
+  component: AssistantLayout,
 });
 
 function AssistantLayout() {
