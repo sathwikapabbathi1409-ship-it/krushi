@@ -9,38 +9,277 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WeatherRouteImport } from './routes/weather'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SchemesRouteImport } from './routes/schemes'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as MarketplaceRouteImport } from './routes/marketplace'
+import { Route as CommunityRouteImport } from './routes/community'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedCropDoctorRouteImport } from './routes/_authenticated/crop-doctor'
+import { Route as AuthenticatedAssistantRouteImport } from './routes/_authenticated/assistant'
+import { Route as AuthenticatedAssistantIndexRouteImport } from './routes/_authenticated/assistant.index'
+import { Route as AuthenticatedAssistantThreadIdRouteImport } from './routes/_authenticated/assistant.$threadId'
 
+const WeatherRoute = WeatherRouteImport.update({
+  id: '/weather',
+  path: '/weather',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SchemesRoute = SchemesRouteImport.update({
+  id: '/schemes',
+  path: '/schemes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketplaceRoute = MarketplaceRouteImport.update({
+  id: '/marketplace',
+  path: '/marketplace',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCropDoctorRoute = AuthenticatedCropDoctorRouteImport.update({
+  id: '/crop-doctor',
+  path: '/crop-doctor',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAssistantRoute = AuthenticatedAssistantRouteImport.update({
+  id: '/assistant',
+  path: '/assistant',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAssistantIndexRoute =
+  AuthenticatedAssistantIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedAssistantRoute,
+  } as any)
+const AuthenticatedAssistantThreadIdRoute =
+  AuthenticatedAssistantThreadIdRouteImport.update({
+    id: '/$threadId',
+    path: '/$threadId',
+    getParentRoute: () => AuthenticatedAssistantRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
+  '/community': typeof CommunityRoute
+  '/marketplace': typeof MarketplaceRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/schemes': typeof SchemesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/weather': typeof WeatherRoute
+  '/assistant': typeof AuthenticatedAssistantRouteWithChildren
+  '/crop-doctor': typeof AuthenticatedCropDoctorRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/assistant/$threadId': typeof AuthenticatedAssistantThreadIdRoute
+  '/assistant/': typeof AuthenticatedAssistantIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
+  '/community': typeof CommunityRoute
+  '/marketplace': typeof MarketplaceRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/schemes': typeof SchemesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/weather': typeof WeatherRoute
+  '/crop-doctor': typeof AuthenticatedCropDoctorRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/assistant/$threadId': typeof AuthenticatedAssistantThreadIdRoute
+  '/assistant': typeof AuthenticatedAssistantIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
+  '/community': typeof CommunityRoute
+  '/marketplace': typeof MarketplaceRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/schemes': typeof SchemesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/weather': typeof WeatherRoute
+  '/_authenticated/assistant': typeof AuthenticatedAssistantRouteWithChildren
+  '/_authenticated/crop-doctor': typeof AuthenticatedCropDoctorRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/_authenticated/assistant/$threadId': typeof AuthenticatedAssistantThreadIdRoute
+  '/_authenticated/assistant/': typeof AuthenticatedAssistantIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/auth'
+    | '/community'
+    | '/marketplace'
+    | '/reset-password'
+    | '/schemes'
+    | '/sitemap.xml'
+    | '/weather'
+    | '/assistant'
+    | '/crop-doctor'
+    | '/profile'
+    | '/assistant/$threadId'
+    | '/assistant/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/auth'
+    | '/community'
+    | '/marketplace'
+    | '/reset-password'
+    | '/schemes'
+    | '/sitemap.xml'
+    | '/weather'
+    | '/crop-doctor'
+    | '/profile'
+    | '/assistant/$threadId'
+    | '/assistant'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/about'
+    | '/auth'
+    | '/community'
+    | '/marketplace'
+    | '/reset-password'
+    | '/schemes'
+    | '/sitemap.xml'
+    | '/weather'
+    | '/_authenticated/assistant'
+    | '/_authenticated/crop-doctor'
+    | '/_authenticated/profile'
+    | '/_authenticated/assistant/$threadId'
+    | '/_authenticated/assistant/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AboutRoute: typeof AboutRoute
+  AuthRoute: typeof AuthRoute
+  CommunityRoute: typeof CommunityRoute
+  MarketplaceRoute: typeof MarketplaceRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
+  SchemesRoute: typeof SchemesRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  WeatherRoute: typeof WeatherRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/weather': {
+      id: '/weather'
+      path: '/weather'
+      fullPath: '/weather'
+      preLoaderRoute: typeof WeatherRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/schemes': {
+      id: '/schemes'
+      path: '/schemes'
+      fullPath: '/schemes'
+      preLoaderRoute: typeof SchemesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/marketplace': {
+      id: '/marketplace'
+      path: '/marketplace'
+      fullPath: '/marketplace'
+      preLoaderRoute: typeof MarketplaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +287,87 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/crop-doctor': {
+      id: '/_authenticated/crop-doctor'
+      path: '/crop-doctor'
+      fullPath: '/crop-doctor'
+      preLoaderRoute: typeof AuthenticatedCropDoctorRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/assistant': {
+      id: '/_authenticated/assistant'
+      path: '/assistant'
+      fullPath: '/assistant'
+      preLoaderRoute: typeof AuthenticatedAssistantRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/assistant/': {
+      id: '/_authenticated/assistant/'
+      path: '/'
+      fullPath: '/assistant/'
+      preLoaderRoute: typeof AuthenticatedAssistantIndexRouteImport
+      parentRoute: typeof AuthenticatedAssistantRoute
+    }
+    '/_authenticated/assistant/$threadId': {
+      id: '/_authenticated/assistant/$threadId'
+      path: '/$threadId'
+      fullPath: '/assistant/$threadId'
+      preLoaderRoute: typeof AuthenticatedAssistantThreadIdRouteImport
+      parentRoute: typeof AuthenticatedAssistantRoute
+    }
   }
 }
 
+interface AuthenticatedAssistantRouteChildren {
+  AuthenticatedAssistantThreadIdRoute: typeof AuthenticatedAssistantThreadIdRoute
+  AuthenticatedAssistantIndexRoute: typeof AuthenticatedAssistantIndexRoute
+}
+
+const AuthenticatedAssistantRouteChildren: AuthenticatedAssistantRouteChildren =
+  {
+    AuthenticatedAssistantThreadIdRoute: AuthenticatedAssistantThreadIdRoute,
+    AuthenticatedAssistantIndexRoute: AuthenticatedAssistantIndexRoute,
+  }
+
+const AuthenticatedAssistantRouteWithChildren =
+  AuthenticatedAssistantRoute._addFileChildren(
+    AuthenticatedAssistantRouteChildren,
+  )
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAssistantRoute: typeof AuthenticatedAssistantRouteWithChildren
+  AuthenticatedCropDoctorRoute: typeof AuthenticatedCropDoctorRoute
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAssistantRoute: AuthenticatedAssistantRouteWithChildren,
+  AuthenticatedCropDoctorRoute: AuthenticatedCropDoctorRoute,
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AboutRoute: AboutRoute,
+  AuthRoute: AuthRoute,
+  CommunityRoute: CommunityRoute,
+  MarketplaceRoute: MarketplaceRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
+  SchemesRoute: SchemesRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  WeatherRoute: WeatherRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
