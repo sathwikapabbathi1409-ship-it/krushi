@@ -18,6 +18,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedCropDoctorRouteImport } from './routes/_authenticated/crop-doctor'
 import { Route as AuthenticatedAssistantRouteImport } from './routes/_authenticated/assistant'
 import { Route as AuthenticatedAssistantIndexRouteImport } from './routes/_authenticated/assistant.index'
@@ -67,6 +68,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedCropDoctorRoute = AuthenticatedCropDoctorRouteImport.update({
   id: '/crop-doctor',
   path: '/crop-doctor',
@@ -101,6 +107,7 @@ export interface FileRoutesByFullPath {
   '/weather': typeof WeatherRoute
   '/assistant': typeof AuthenticatedAssistantRouteWithChildren
   '/crop-doctor': typeof AuthenticatedCropDoctorRoute
+  '/profile': typeof AuthenticatedProfileRoute
   '/assistant/$threadId': typeof AuthenticatedAssistantThreadIdRoute
   '/assistant/': typeof AuthenticatedAssistantIndexRoute
 }
@@ -114,6 +121,7 @@ export interface FileRoutesByTo {
   '/schemes': typeof SchemesRoute
   '/weather': typeof WeatherRoute
   '/crop-doctor': typeof AuthenticatedCropDoctorRoute
+  '/profile': typeof AuthenticatedProfileRoute
   '/assistant/$threadId': typeof AuthenticatedAssistantThreadIdRoute
   '/assistant': typeof AuthenticatedAssistantIndexRoute
 }
@@ -130,6 +138,7 @@ export interface FileRoutesById {
   '/weather': typeof WeatherRoute
   '/_authenticated/assistant': typeof AuthenticatedAssistantRouteWithChildren
   '/_authenticated/crop-doctor': typeof AuthenticatedCropDoctorRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/assistant/$threadId': typeof AuthenticatedAssistantThreadIdRoute
   '/_authenticated/assistant/': typeof AuthenticatedAssistantIndexRoute
 }
@@ -146,6 +155,7 @@ export interface FileRouteTypes {
     | '/weather'
     | '/assistant'
     | '/crop-doctor'
+    | '/profile'
     | '/assistant/$threadId'
     | '/assistant/'
   fileRoutesByTo: FileRoutesByTo
@@ -159,6 +169,7 @@ export interface FileRouteTypes {
     | '/schemes'
     | '/weather'
     | '/crop-doctor'
+    | '/profile'
     | '/assistant/$threadId'
     | '/assistant'
   id:
@@ -174,6 +185,7 @@ export interface FileRouteTypes {
     | '/weather'
     | '/_authenticated/assistant'
     | '/_authenticated/crop-doctor'
+    | '/_authenticated/profile'
     | '/_authenticated/assistant/$threadId'
     | '/_authenticated/assistant/'
   fileRoutesById: FileRoutesById
@@ -255,6 +267,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/crop-doctor': {
       id: '/_authenticated/crop-doctor'
       path: '/crop-doctor'
@@ -305,11 +324,13 @@ const AuthenticatedAssistantRouteWithChildren =
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAssistantRoute: typeof AuthenticatedAssistantRouteWithChildren
   AuthenticatedCropDoctorRoute: typeof AuthenticatedCropDoctorRoute
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAssistantRoute: AuthenticatedAssistantRouteWithChildren,
   AuthenticatedCropDoctorRoute: AuthenticatedCropDoctorRoute,
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
