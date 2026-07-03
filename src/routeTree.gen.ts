@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WeatherRouteImport } from './routes/weather'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SchemesRouteImport } from './routes/schemes'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as MarketplaceRouteImport } from './routes/marketplace'
@@ -27,6 +28,11 @@ import { Route as AuthenticatedAssistantThreadIdRouteImport } from './routes/_au
 const WeatherRoute = WeatherRouteImport.update({
   id: '/weather',
   path: '/weather',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SchemesRoute = SchemesRouteImport.update({
@@ -104,6 +110,7 @@ export interface FileRoutesByFullPath {
   '/marketplace': typeof MarketplaceRoute
   '/reset-password': typeof ResetPasswordRoute
   '/schemes': typeof SchemesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/weather': typeof WeatherRoute
   '/assistant': typeof AuthenticatedAssistantRouteWithChildren
   '/crop-doctor': typeof AuthenticatedCropDoctorRoute
@@ -119,6 +126,7 @@ export interface FileRoutesByTo {
   '/marketplace': typeof MarketplaceRoute
   '/reset-password': typeof ResetPasswordRoute
   '/schemes': typeof SchemesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/weather': typeof WeatherRoute
   '/crop-doctor': typeof AuthenticatedCropDoctorRoute
   '/profile': typeof AuthenticatedProfileRoute
@@ -135,6 +143,7 @@ export interface FileRoutesById {
   '/marketplace': typeof MarketplaceRoute
   '/reset-password': typeof ResetPasswordRoute
   '/schemes': typeof SchemesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/weather': typeof WeatherRoute
   '/_authenticated/assistant': typeof AuthenticatedAssistantRouteWithChildren
   '/_authenticated/crop-doctor': typeof AuthenticatedCropDoctorRoute
@@ -152,6 +161,7 @@ export interface FileRouteTypes {
     | '/marketplace'
     | '/reset-password'
     | '/schemes'
+    | '/sitemap.xml'
     | '/weather'
     | '/assistant'
     | '/crop-doctor'
@@ -167,6 +177,7 @@ export interface FileRouteTypes {
     | '/marketplace'
     | '/reset-password'
     | '/schemes'
+    | '/sitemap.xml'
     | '/weather'
     | '/crop-doctor'
     | '/profile'
@@ -182,6 +193,7 @@ export interface FileRouteTypes {
     | '/marketplace'
     | '/reset-password'
     | '/schemes'
+    | '/sitemap.xml'
     | '/weather'
     | '/_authenticated/assistant'
     | '/_authenticated/crop-doctor'
@@ -199,6 +211,7 @@ export interface RootRouteChildren {
   MarketplaceRoute: typeof MarketplaceRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SchemesRoute: typeof SchemesRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   WeatherRoute: typeof WeatherRoute
 }
 
@@ -209,6 +222,13 @@ declare module '@tanstack/react-router' {
       path: '/weather'
       fullPath: '/weather'
       preLoaderRoute: typeof WeatherRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/schemes': {
@@ -345,6 +365,7 @@ const rootRouteChildren: RootRouteChildren = {
   MarketplaceRoute: MarketplaceRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SchemesRoute: SchemesRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   WeatherRoute: WeatherRoute,
 }
 export const routeTree = rootRouteImport
